@@ -1,0 +1,12 @@
+{
+  "name": "EPC Mobile Checker",
+  "version": "1.1",
+  "description": "Extends the Developer Tools, adding an audit category that validates the EPC Mobile Rules",
+  "devtools_page": "devtools.html",
+  "permissions":  [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "manifest_version": 2
+}
