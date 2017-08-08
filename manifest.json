@@ -4,7 +4,7 @@
   "description": "Extends the Developer Tools, adding an audit category that validates the EPC Mobile Rules",
   "devtools_page": "devtools.html",
   "background": {
-    "scripts": ["background.js"]
+    "page": "background.html"
   },
   "permissions":  [
     "tabs",
