@@ -1,10 +1,11 @@
-<html>
+<html ng-app="epcValidationApp">
     <head>
-        <script src="jquery-3.2.1.min.js"></script>
-        <script src="panel.js"></script>
+        <script src="externalLibs/jquery-3.2.1.min.js"></script>
+        <script src="externalLibs/angular.min.js"></script>
+        <script src="epcValidationApp.js"></script>
     </head>
-    <body>
-        <div><button id="button">Start the validation</a></div>
-        <div id="result"/>
+    <body ng-controller="EPCValidationController">
+        <div><button ng-click="validatePage()">Start the validation</a></div>
+        <div ng-bind="result"/>
     </body>
 </html>
