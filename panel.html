@@ -12,7 +12,7 @@
         <button class="button" ng-click="validatePage()">Start the page validation</button>
         <div class="results">
             <div class="rule" ng-repeat="rule in validationRules">
-                {{rule.RuleName}}
+                <div class="rule-header">{{rule.RuleDescription}} - {{rule.RuleId}}</div>
                 <div class="issue" ng-repeat="issue in rule.ValidationIssues">
                     <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}}
                 </div>

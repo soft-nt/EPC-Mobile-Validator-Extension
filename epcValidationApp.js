@@ -21,34 +21,7 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
     return result;
   }
 
-  $scope.validationRules = decorateValidationRuleResults([
-    {
-      "RuleName": "Rule 1",
-      "ValidationIssues": [
-        {
-          "Type": "error",
-          "Description": "Something"
-        },
-        {
-          "Type": "warning",
-          "Description": "Something"
-        },
-        {
-          "Type": "error",
-          "Description": "Something"
-        }
-      ]
-    },
-    {
-      "RuleName": "Rule 2",
-      "ValidationIssues": [
-        {
-          "Type": "error",
-          "Description": "Sosad sadadsad mething"
-        }
-      ]
-    }
-  ]);
+  $scope.validationRules = [];
 
   $scope.validatePage = function () {
     epcValidatorService.requestPageValidation().then(function (value) {
