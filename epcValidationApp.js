@@ -1,21 +1,26 @@
 var epcValidationApp = angular.module('epcValidationApp', []);
 
+// Add config to handle image coming from Chrome Extension package
+epcValidationApp.config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|local|data|chrome-extension):/);
+}]);
+
 epcValidationApp.controller('EPCValidationController', function ($scope, epcValidatorService) {
   decorateValidationRuleResults = function (result) {
     result.forEach(function(rules) {
       rules.ValidationIssues.forEach(function(issue) {
         if (chrome.extension) {
-          issue.Img = chrome.extension.getURL("images/" + issue.Type + ".png");
+          issue.ImgUrl = chrome.runtime.getURL("images/" + issue.Type + ".png");
         }
         else {
-          issue.Img = "images/" + issue.Type + ".png"
+          issue.ImgUrl = "images/" + issue.Type + ".png"
         }
       }, this);
     }, this);
     
     return result;
   }
-  
+
   $scope.validationRules = decorateValidationRuleResults([
     {
       "RuleName": "Rule 1",
@@ -47,7 +52,7 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
 
   $scope.validatePage = function () {
     epcValidatorService.requestPageValidation().then(function (value) {
-      $scope.validationRules = value;
+      $scope.validationRules = decorateValidationRuleResults(value);
     });
   }
 });
@@ -60,7 +65,6 @@ var epcValidatorService = epcValidationApp.service('epcValidatorService', functi
     var defer = $q.defer();
 
     chrome.runtime.sendMessage({ action: "CheckEPC", "tabId": chrome.devtools.inspectedWindow.tabId }, function (response) {
-      alert(response);
       defer.resolve(response);
     });
 
