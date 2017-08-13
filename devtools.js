@@ -1,2 +1,2 @@
-chrome.devtools.panels.create("EPC Mobile Validator", "", "panel.html", function (panel) {
+chrome.devtools.panels.create("EPCMobileValidator", "", "panel.html", function (panel) {
 });

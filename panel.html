@@ -1,11 +1,21 @@
 <html ng-app="epcValidationApp">
-    <head>
-        <script src="externalLibs/jquery-3.2.1.min.js"></script>
-        <script src="externalLibs/angular.min.js"></script>
-        <script src="epcValidationApp.js"></script>
-    </head>
-    <body ng-controller="EPCValidationController">
-        <div><button ng-click="validatePage()">Start the validation</a></div>
-        <div ng-bind="result"/>
+
+<head>
+    <script src="externalLibs/jquery-3.2.1.min.js"></script>
+    <script src="externalLibs/angular.min.js"></script>
+    <script src="epcValidationApp.js"></script>
+    <link rel="stylesheet" type="text/css" href="panel.css">
+</head>
+
+<body ng-controller="EPCValidationController">
+    <button class="button" ng-click="validatePage()">Start the page validation</button>
+        <div class="results">
+            <div class="rule" ng-repeat="rule in validationRules">
+                {{rule.RuleName}}
+                <div class="issue" ng-repeat="issue in rule.ValidationIssues">
+                    <img width="16px" height="16px" ng-src="{{issue.Img}}"/> {{issue.Description}} {{issue.Img}}
+                </div>
+            </div>
+        </div>
     </body>
 </html>
