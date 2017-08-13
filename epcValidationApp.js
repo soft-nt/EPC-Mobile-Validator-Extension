@@ -7,8 +7,16 @@ epcValidationApp.config(['$compileProvider', function ($compileProvider) {
 
 epcValidationApp.controller('EPCValidationController', function ($scope, epcValidatorService) {
   decorateValidationRuleResults = function (result) {
-    result.forEach(function(rules) {
-      rules.ValidationIssues.forEach(function(issue) {
+    result.NbRulesWIssues = 0;
+    result.NbRules = 0;
+
+    result.forEach(function (rules) {
+      result.NbRules++;
+      if (rules.ValidationIssues.length > 0) {
+        result.NbRulesWIssues++;
+      }
+
+      rules.ValidationIssues.forEach(function (issue) {
         if (chrome.extension) {
           issue.ImgUrl = chrome.runtime.getURL("images/" + issue.Type + ".png");
         }
@@ -17,7 +25,7 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
         }
       }, this);
     }, this);
-    
+
     return result;
   }
 
