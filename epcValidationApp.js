@@ -7,13 +7,13 @@ epcValidationApp.config(['$compileProvider', function ($compileProvider) {
 
 epcValidationApp.controller('EPCValidationController', function ($scope, epcValidatorService) {
   decorateValidationRuleResults = function (result) {
-    result.NbRulesWIssues = 0;
-    result.NbRules = 0;
+    var nbRulesWIssues = 0;
+    var nbRules = 0;
 
     result.forEach(function (rules) {
-      result.NbRules++;
+      nbRules++;
       if (rules.ValidationIssues.length > 0) {
-        result.NbRulesWIssues++;
+        nbRulesWIssues++;
       }
 
       rules.ValidationIssues.forEach(function (issue) {
@@ -25,6 +25,8 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
         }
       }, this);
     }, this);
+
+    result.RulesSummary = nbRulesWIssues + "/" + nbRules;
 
     return result;
   }

@@ -10,7 +10,7 @@
 <body>
     <div ng-controller="EPCValidationController">
         <button class="button" ng-click="validatePage()">Start the page validation</button>
-        <div class="score">{{validationRules.NbRulesWIssues}} / {{validationRules.NbRules}}</div>
+        <div class="score">{{validationRules.RulesSummary}}</div>
         <div class="results">
             <div class="rule" ng-repeat="rule in validationRules">
                 <div class="rule-header">{{rule.RuleDescription}} - {{rule.RuleId}}</div>
