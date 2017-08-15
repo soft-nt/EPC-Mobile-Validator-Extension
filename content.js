@@ -10,7 +10,8 @@ each function needs to return that JSON format
     "ValidationIssues": [
       {
         "Type": "Type of error (error; warning)",
-        "Description": "Deeper explanation of the error"
+        "Description": "Deeper explanation of the error",
+        "Elt": "HTML Element that is targeted"
       }
     ]
   }
@@ -36,7 +37,8 @@ ruleEngines.push(function () {
       // Creating the issue
       result.ValidationIssues.push({
         "Type": "error",
-        "Description": "The text with the content \"" + element.textContent + "\" has a size of " + fontSize
+        "Description": "The text with the content \"" + element.textContent + "\" has a size of " + fontSize,
+        "Elt": element
       });
     }
   }, this);

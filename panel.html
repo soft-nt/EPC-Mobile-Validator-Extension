@@ -3,6 +3,7 @@
 <head>
     <script src="externalLibs/jquery-3.2.1.min.js"></script>
     <script src="externalLibs/angular.min.js"></script>
+    <script src="externalLibs/html2canvas.js"></script>
     <script src="epcValidationApp.js"></script>
     <link rel="stylesheet" type="text/css" href="panel.css">
 </head>
@@ -15,7 +16,7 @@
             <div class="rule" ng-repeat="rule in validationRules">
                 <div class="rule-header">{{rule.RuleDescription}} - {{rule.RuleId}}</div>
                 <div class="issue" ng-repeat="issue in rule.ValidationIssues">
-                    <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}}
+                    <rule-issue ng-model="issue"></rule-issue>
                 </div>
             </div>
         </div>

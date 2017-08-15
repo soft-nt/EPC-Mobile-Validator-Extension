@@ -54,3 +54,24 @@ var epcValidatorService = epcValidationApp.service('epcValidatorService', functi
     return defer.promise
   }
 });
+
+// Creating the component for the result with the HTML to Canvas view
+epcValidationApp.directive('ruleIssue', function() {
+  return {
+    restrict: 'E',
+    replace: false,
+    require: "^ngModel",
+    scope: {
+      modelValue: '=ngModel'
+    },
+    template: '<img width="16px" height="16px" ng-src="{{modelValue.ImgUrl}}" /> {{modelValue.Description}} {{modelValue.Img}}',
+    link: function($scope, $element, $attr) {
+      /*html2canvas($scope.modelValue.elt, {
+        onrendered: function(canvas) {
+        	angular.element($element).append(canvas);
+        },
+        height : 50
+      });*/
+    }
+  }
+})
