@@ -6,6 +6,7 @@ var ruleEngines = [];
 each function needs to return that JSON format
 {
     "RuleId": "Rule Id",
+    "RuleArea" : "Typography",
     "RuleDescription": ""
     "ValidationIssues": [
       {
@@ -17,19 +18,52 @@ each function needs to return that JSON format
   }
 */
 
-// Rule engine - H1 size validation no more than 10px
+// Rule engine - The minimum font size on the page is 13
 ruleEngines.push(function () {
-  var fontMaxSize = 10;
+  var fontMinSize = 10;
 
   var result = {
-    "RuleId": "RuleH1Size",
-    "RuleDescription": "H1 to H3 elements should not be greater than " + fontMaxSize,
+    "RuleId": "MinFontSize",
+    "RuleArea" : "Typography",
+    "RuleDescription": "The minimum font size on the page is " + fontMinSize,
     "ValidationIssues": []
   };
 
-  var h1Elts = document.querySelectorAll("h1,h2,h3");
+  //var h1Elts = document.querySelectorAll("h1,h2,h3");
+  var elts = document.querySelectorAll("h1,h2,h3,h4,td,th");
 
-  h1Elts.forEach(function (element) {
+  elts.forEach(function (element) {
+    var eltStyle = window.getComputedStyle(element);
+    var fontSize = parseFloat(eltStyle.getPropertyValue("font-size"));
+
+    if (fontSize < fontMinSize && element.textContent) {
+      // Creating the issue
+      result.ValidationIssues.push({
+        "Type": "error",
+        "Description": "The text with the content \"" + element.textContent + "\" has a size of " + fontSize,
+        "Elt": element
+      });
+    }
+  }, this);
+
+  return result;
+});
+
+// Rule engine - The max font size on the page is 20
+ruleEngines.push(function () {
+  var fontMaxSize = 20;
+
+  var result = {
+    "RuleId": "MaxFontSize",
+    "RuleArea" : "Typography",
+    "RuleDescription": "The maximum font size on the page is " + fontMaxSize,
+    "ValidationIssues": []
+  };
+
+  //var h1Elts = document.querySelectorAll("h1,h2,h3");
+  var elts = document.querySelectorAll("h1,h2,h3,h4,td,th");
+
+  elts.forEach(function (element) {
     var eltStyle = window.getComputedStyle(element);
     var fontSize = parseFloat(eltStyle.getPropertyValue("font-size"));
 
