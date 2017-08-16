@@ -15,7 +15,7 @@
             <div class="rule" ng-repeat="rule in validationRules">
                 <div class="rule-header">{{rule.RuleArea}} - {{rule.RuleDescription}} - {{rule.RuleId}}</div>
                 <div class="issue" ng-repeat="issue in rule.ValidationIssues">
-                    <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}} -- (Elt Link-Id: {{issue.EltLinkId}})
+                    <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}} -- (link-id: {{issue.EltLinkId}})
                 </div>
             </div>
         </div>
