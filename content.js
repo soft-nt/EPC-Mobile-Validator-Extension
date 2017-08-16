@@ -12,11 +12,24 @@ each function needs to return that JSON format
       {
         "Type": "Type of error (error; warning)",
         "Description": "Deeper explanation of the error",
-        "Elt": "HTML Element that is targeted"
+        "EltLinkId": "Id attached to the element"
       }
     ]
   }
 */
+
+function createGuid() {  
+  function s4() {  
+     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);  
+  }  
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();  
+}  
+
+function AssignAndGetEltId(elt){
+  var guid = createGuid();
+  elt.setAttribute('link-id', guid);
+  return guid;
+}
 
 // Rule engine - The minimum font size on the page is 13
 ruleEngines.push(function () {
@@ -41,7 +54,7 @@ ruleEngines.push(function () {
       result.ValidationIssues.push({
         "Type": "error",
         "Description": "The text with the content \"" + element.textContent + "\" has a size of " + fontSize,
-        "Elt": element
+        "EltLinkId": AssignAndGetEltId(element)
       });
     }
   }, this);
@@ -72,7 +85,7 @@ ruleEngines.push(function () {
       result.ValidationIssues.push({
         "Type": "error",
         "Description": "The text with the content \"" + element.textContent + "\" has a size of " + fontSize,
-        "Elt": element
+        "EltLinkId": AssignAndGetEltId(element)
       });
     }
   }, this);
