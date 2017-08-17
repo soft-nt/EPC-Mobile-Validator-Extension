@@ -28,7 +28,12 @@ function createGuid() {
 function AssignAndGetEltId(elt){
   var guid = createGuid();
   elt.setAttribute('link-id', guid);
+  //elt.style.border = "solid red";
   return guid;
+}
+
+function highlightElt(eltId) {
+
 }
 
 // Rule engine - The minimum font size on the page is 13
@@ -104,7 +109,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     validationResults.push(ruleEngineFct());
   }, this);
 
-  sendResponse(validationResults);
+  switch (request.action) {
+    case "CheckEPC":
+      sendResponse(validationResults);
+      break;
+    case "Start-Highlight":
+      
+      break;
+    case "End-Highlight":
+      break;
+  }
+  
 
   return true;
 });

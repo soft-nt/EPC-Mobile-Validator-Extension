@@ -38,6 +38,14 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
       $scope.validationRules = decorateValidationRuleResults(value);
     });
   }
+
+  $scope.startHighlight = function (linkId) {
+    epcValidatorService.startHighlight(linkId);
+  }
+
+  $scope.endHighlight = function (linkId) {
+    epcValidatorService.endHighlight(linkId);
+  }
 });
 
 
@@ -48,6 +56,26 @@ var epcValidatorService = epcValidationApp.service('epcValidatorService', functi
     var defer = $q.defer();
 
     chrome.runtime.sendMessage({ action: "CheckEPC", "tabId": chrome.devtools.inspectedWindow.tabId }, function (response) {
+      defer.resolve(response);
+    });
+
+    return defer.promise
+  }
+
+  this.startHighlight = function (linkId) {
+    var defer = $q.defer();
+
+    chrome.runtime.sendMessage({ action: "Start-Highlight", "linkId": linkId, "tabId": chrome.devtools.inspectedWindow.tabId }, function (response) {
+      defer.resolve(response);
+    });
+
+    return defer.promise
+  }
+
+  this.endHighlight = function (linkId) {
+    var defer = $q.defer();
+
+    chrome.runtime.sendMessage({ action: "End-Highlight", "linkId": linkId, "tabId": chrome.devtools.inspectedWindow.tabId }, function (response) {
       defer.resolve(response);
     });
 
