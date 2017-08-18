@@ -1,6 +1,8 @@
 var validationResults = [];
 var ruleEngines = [];
 
+alert(ruleEngines.length);
+
 /*
 ------------- BEGIN RULE ENGINES -------------
 each function needs to return that JSON format
@@ -18,17 +20,20 @@ each function needs to return that JSON format
   }
 */
 
-function createGuid() {  
-  function s4() {  
-     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);  
-  }  
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();  
-}  
+function createGuid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 
-function AssignAndGetEltId(elt){
+function AssignAndGetEltId(elt) {
   var guid = createGuid();
+
+  console.log("created guid " + guid);
+
   elt.setAttribute('link-id', guid);
-  //elt.style.border = "solid red";
+
   return guid;
 }
 
@@ -42,7 +47,7 @@ ruleEngines.push(function () {
 
   var result = {
     "RuleId": "MinFontSize",
-    "RuleArea" : "Typography",
+    "RuleArea": "Typography",
     "RuleDescription": "The minimum font size on the page is " + fontMinSize,
     "ValidationIssues": []
   };
@@ -73,7 +78,7 @@ ruleEngines.push(function () {
 
   var result = {
     "RuleId": "MaxFontSize",
-    "RuleArea" : "Typography",
+    "RuleArea": "Typography",
     "RuleDescription": "The maximum font size on the page is " + fontMaxSize,
     "ValidationIssues": []
   };
@@ -114,12 +119,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       sendResponse(validationResults);
       break;
     case "Start-Highlight":
+    console.log("[link-id='"+request.linkId+"']");  
+    var targetElt = document.querySelector("[link-id='"+request.linkId+"']")
+      console.log(JSON.stringify(request));
+      console.log(targetElt);
+      if (targetElt) {
+        elt.style.border = "solid lightcoral";
+      }
       
       break;
-    case "End-Highlight":
-      break;
   }
-  
+
 
   return true;
 });

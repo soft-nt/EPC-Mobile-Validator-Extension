@@ -22,10 +22,6 @@
    padding-left: 15px;
  }
 
- .issue:hover{
-     border: solid red;
- }
-
  .score {
      font-size: 16px;
  }

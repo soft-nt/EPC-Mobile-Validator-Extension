@@ -10,6 +10,8 @@ epcValidationApp.controller('EPCValidationController', function ($scope, epcVali
     var nbRulesWIssues = 0;
     var nbRules = 0;
 
+    $scope.highlightImg = chrome.runtime.getURL("images/highlight.png");
+
     result.forEach(function (rules) {
       nbRules++;
       if (rules.ValidationIssues.length > 0) {
