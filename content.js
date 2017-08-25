@@ -1,7 +1,5 @@
-var validationResults = [];
-var ruleEngines = [];
+console.log("Content.js Injected");
 
-alert(ruleEngines.length);
 
 /*
 ------------- BEGIN RULE ENGINES -------------
@@ -41,8 +39,18 @@ function highlightElt(eltId) {
 
 }
 
+function getRules() {
+  console.log("Getting rules");
+  var ruleEngines = [];
+
+  ruleEngines.push(rule1);
+  ruleEngines.push(rule2);
+
+  return ruleEngines;
+}
+
 // Rule engine - The minimum font size on the page is 13
-ruleEngines.push(function () {
+function rule1() {
   var fontMinSize = 10;
 
   var result = {
@@ -70,10 +78,10 @@ ruleEngines.push(function () {
   }, this);
 
   return result;
-});
+};
 
 // Rule engine - The max font size on the page is 20
-ruleEngines.push(function () {
+function rule2() {
   var fontMaxSize = 20;
 
   var result = {
@@ -101,7 +109,7 @@ ruleEngines.push(function () {
   }, this);
 
   return result;
-});
+};
 
 /*
 ------------- END RULE ENGINES -------------
@@ -109,24 +117,25 @@ ruleEngines.push(function () {
 
 // Processing the validation message
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log("Msg received: " + JSON.stringify(request));
+
   // Just retrieving the document content
-  ruleEngines.forEach(function (ruleEngineFct) {
-    validationResults.push(ruleEngineFct());
-  }, this);
 
   switch (request.action) {
     case "CheckEPC":
+      var validationResults = [];
+      getRules().forEach(function (ruleEngineFct) {
+        validationResults.push(ruleEngineFct());
+      }, this);
       sendResponse(validationResults);
       break;
     case "Start-Highlight":
-    console.log("[link-id='"+request.linkId+"']");  
-    var targetElt = document.querySelector("[link-id='"+request.linkId+"']")
-      console.log(JSON.stringify(request));
-      console.log(targetElt);
+      console.log("[link-id='" + request.linkId + "']");
+      var targetElt = document.querySelector("[link-id='" + request.linkId + "']")
       if (targetElt) {
         elt.style.border = "solid lightcoral";
       }
-      
+
       break;
   }
 
