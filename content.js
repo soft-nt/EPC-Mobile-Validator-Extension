@@ -29,7 +29,6 @@ function AssignAndGetEltId(elt) {
   var guid = createGuid();
 
   console.log("created guid " + guid);
-
   elt.setAttribute('link-id', guid);
 
   return guid;
@@ -130,10 +129,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       sendResponse(validationResults);
       break;
     case "Start-Highlight":
-      console.log("[link-id='" + request.linkId + "']");
       var targetElt = document.querySelector("[link-id='" + request.linkId + "']")
       if (targetElt) {
-        elt.style.border = "solid lightcoral";
+        targetElt.setAttribute('oldStyle', targetElt.style.backgroundColor);
+        targetElt.style.backgroundColor = "palevioletred";
+        targetElt.scrollIntoView();
+      }
+
+      break;
+    case "End-Highlight":
+      var targetElt = document.querySelector("[link-id='" + request.linkId + "']")
+      if (targetElt) {
+        targetElt.style.backgroundColor =  targetElt.getAttribute('oldStyle');
       }
 
       break;

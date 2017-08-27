@@ -15,8 +15,8 @@
             <div class="rule" ng-repeat="rule in validationRules">
                 <div class="rule-header">{{rule.RuleArea}} - {{rule.RuleDescription}} - {{rule.RuleId}}</div>
                 <div class="issue" ng-repeat="issue in rule.ValidationIssues">
-                    <div>
-                        <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}} -- (link-id: {{issue.EltLinkId}}) <img  ng-click="startHighlight(issue.EltLinkId)" width="16px" height="16px" ng-src="{{highlightImg}}" /></div>
+                    <div ng-mouseleave="endHighlight(issue.EltLinkId)" ng-mouseenter="startHighlight(issue.EltLinkId)">
+                        <img width="16px" height="16px" ng-src="{{issue.ImgUrl}}" /> {{issue.Description}} {{issue.Img}}</div>
                 </div>
             </div>
         </div>
